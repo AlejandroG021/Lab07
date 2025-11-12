@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Question</title>
+    <style>
+        /* Dark theme for quiz page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* constrain content and center it */
+        body {
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .progress { color: #bbb; margin-bottom: 20px; }
+        .question { font-size: 20px; font-weight: bold; margin-bottom: 20px; }
+        .options { list-style: none; padding: 0; }
+        .options li { margin: 10px 0; }
+        .options label {
+            display: block;
+            padding: 15px;
+            background: #111;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #333;
+            color: #fff;
+        }
+        .options input[type="radio"] { margin-right: 10px; }
+        .options label:hover { background: #222; }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            background: #1e7e34; /* darker green */
+            color: white;
+            border: 1px solid #145c2a;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover { background: #19692b; }
+    </style>
+</head>
+<body>
+    <div class="progress">
+        Question <span th:text="${questionNumber}">1</span> of 
+        <span th:text="${totalQuestions}">5</span>
+    </div>
+    
+    <div class="question" th:text="${question.text}">Question text here</div>
+    
+    <form method="post" th:action="@{/submit}">
+        <input type="hidden" name="questionId" th:value="${question.id}">
+        
+        <ul class="options">
+            <li th:each="option, iterStat : ${question.options}">
+                <label>
+                    <input type="radio" name="answer" 
+                           th:value="${iterStat.index}" required>
+                    <span th:text="${option}">Option text</span>
+                </label>
+            </li>
+        </ul>
+        
+        <button type="submit" class="btn">Submit Answer</button>
+    </form>
+</body>
+</html>

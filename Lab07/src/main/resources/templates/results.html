@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Results</title>
+    <style>
+        /* Dark theme for results page */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* constrain content and center it */
+        body {
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .results { background: #111; padding: 30px; border-radius: 10px; margin: 20px 0; border: 1px solid #333; }
+        .score { font-size: 48px; font-weight: bold; color: #7CFC00; }
+        .percentage { font-size: 24px; color: #bbb; margin: 10px 0; }
+        .btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            background: #111;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background: #222; }
+    </style>
+</head>
+<body>
+    <h1>Quiz Complete!</h1>
+    
+    <div class="results">
+        <div class="score">
+            <span th:text="${score}">0</span> / 
+            <span th:text="${total}">5</span>
+        </div>
+        <div class="percentage" 
+             th:text="${#numbers.formatDecimal(percentage, 1, 1)} + '%'">0%</div>
+    </div>
+    
+    <a th:href="@{/}" class="btn">Take Quiz Again</a>
+</body>
+</html>
